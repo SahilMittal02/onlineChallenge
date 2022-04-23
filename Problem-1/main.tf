@@ -1,7 +1,18 @@
 data "azurerm_resource_group" "myrg" {
     name = var.name
 }
+data "azurerm_storage_account" "mysg" {
+    name = var.storage_account_name
+}
 
+terraform {
+    backend "azurerm" {
+        resource_group_name  = "${azurerm_resource_group.myrg.name}"
+        storage_account_name = "${azurerm_storage_account.mysg.name}"
+        container_name       = "${var.container_name}"
+        key                  = "terraform.tfstate"
+    }
+}
 resource "azurerm_virtual_network" "network" {
     name = var.network_name
     location = data.azurerm_resource_group.myrg.location
