@@ -5,12 +5,6 @@ terraform {
             version = ">=2.85"
         }
     }
-    backend "azurerm" {
-        resource_group_name = "${azurerm_resource_group.myrg.name}"
-        storage_account_name = "${azurerm_storage_account.remotestate.name}"
-        container_name       = "${azurerm_storage_container.container.name}"
-        key = "terraform.tfstate"
-    }
 }
 
 provider "azurerm" {
